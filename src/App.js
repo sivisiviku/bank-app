@@ -1,25 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './UI/Navbar';
+import Modal from './UI/Modal'
+import Login from './Form/Login'
+import Register from './Form/Register'
+import { useState } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [isShowModal, setIsShowModal] = useState(false)
+  const [modalContent, setModalContent] = useState(null)
+
+  function hideModal() {
+    setIsShowModal(false)
+  }
+
+  function showRegisterModal() {
+    setModalContent(<Register/>)
+    setIsShowModal(true)
+  }
+
+  function showLoginModal() {
+    setModalContent(<Login/>)
+    setIsShowModal(true)
+  }
+
+  return <>
+    <Navbar showRegisterModal={showRegisterModal} showLoginModal={showLoginModal} />
+    {
+      isShowModal && <Modal onClose={hideModal}>{modalContent}</Modal>
+    }
+  </>;
 }
 
 export default App;
